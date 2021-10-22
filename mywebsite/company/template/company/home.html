@@ -1,0 +1,138 @@
+{% extends 'company/base.html' %}    
+
+{% block title %} AI-LINK {% endblock title %}
+
+{% block content %}
+
+    <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
+
+    {% if user.profile.usertype == 'VIP' %}
+      <h1 class="display-4 fw-normal">โปรโมชันพิเศษสำหรับ VIP Member เท่านั้น !!! </h1>
+      <p class="fs-5 text-muted">สนใจระบบสำหรับใช้ในการเกษตร สามารถใส่โค๊ด ELEC ได้รับส่วนลด 50 %</p>
+    {% elif user.profile.usertype == 'VVIP' %}
+      <h1 class="display-4 fw-normal">โปรโมชันพิเศษสำหรับ VVIP Member เท่านั้น !!! </h1>
+      <p class="fs-5 text-muted">สนใจระบบสำหรับใช้ในการเกษตร สามารถใส่โค๊ด ELEC ได้รับส่วนลด 70 %</p>
+    {% elif user.profile.usertype == 'member' %}
+      <h1 class="display-4 fw-normal">โปรโมชันพิเศษสำหรับ Member เท่านั้น !!! </h1>
+      <p class="fs-5 text-muted">สนใจระบบสำหรับใช้ในการเกษตร สามารถใส่โค๊ด ELEC ได้รับส่วนลด 30 %</p>
+    {% else %}
+      <h1 class="display-4 fw-normal">โปรโมชันพิเศษ</h1>
+      <p class="fs-5 text-muted">สนใจระบบสำหรับใช้ในการเกษตร สามารถใส่โค๊ด ELEC ได้รับส่วนลด 20 %</p>
+    {% endif %}
+    </div>
+    
+
+    {% load static %}
+    <img src="{% static 'myapp.png' %}" alt="My image">
+    <hr>
+    <center>
+      {% for pd in allproduct %}  <!-- allproduct ยึดตาม keys ที่แนบมาจากไฟล์ views.py -->
+        <h1>{{pd.title}}</h1>
+        <p>
+          รายละเอียดเพิ่มเติม: {{pd.description}}<br>
+          ราคา: {{pd.cost}} ฿<br>
+          สินค้าคงเหลือ: {{pd.quantity}}<br>
+        </p>
+        <hr>
+      {% endfor %}
+    </center>
+
+    <h1>ผลิตภัณฑ์ยอดนิยมของเรา</h1>
+
+    <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+      <div class="col">
+        <div class="card mb-4 rounded-3 shadow-sm border-primary">
+            <div class="card-header py-3 text-white bg-primary border-primary">
+            <h4 class="my-0 fw-normal">ระบบวัดพลังงานไฟฟ้า</h4>
+          </div>
+          <div class="card-body">
+            <h1 class="card-title pricing-card-title">5,000฿</h1>
+            <ul class="list-unstyled mt-3 mb-4">
+              <li>Real-time Dashboard</li>
+              <li>ดูข้อมูลย้อนหลังได้นานสูงสุด 1 ปี</li>
+              <li>การซ่อมบำรุงหากมีปัญหา</li>
+              <li>มีการอัพเดตระบบตลอดการใช้งาน</li>
+            </ul>
+            <button type="button" class="w-100 btn btn-lg btn-outline-primary">BUY</button>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card mb-4 rounded-3 shadow-sm border-primary">
+            <div class="card-header py-3 text-white bg-primary border-primary">
+            <h4 class="my-0 fw-normal">ระบบวัดสภาพอากาศ</h4>
+          </div>
+          <div class="card-body">
+            <h1 class="card-title pricing-card-title">10,000฿</h1>
+            <ul class="list-unstyled mt-3 mb-4">
+              <li>Real-time Dashboard</li>
+              <li>ดูข้อมูลย้อนหลังได้นานสูงสุด 1 ปี</li>
+              <li>การซ่อมบำรุงหากมีปัญหา</li>
+              <li>มีการอัพเดตระบบตลอดการใช้งาน</li>
+            </ul>
+            <button type="button" class="w-100 btn btn-lg btn-outline-primary">BUY</button>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card mb-4 rounded-3 shadow-sm border-primary">
+          <div class="card-header py-3 text-white bg-primary border-primary">
+            <h4 class="my-0 fw-normal">ระบบสำหรับใช้ในการเกษตร</h4>
+          </div>
+          <div class="card-body">
+            <h1 class="card-title pricing-card-title">40,000฿</h1>
+            <ul class="list-unstyled mt-3 mb-4">
+              <li>Real-time Dashboard</li>
+              <li>ดูข้อมูลย้อนหลังได้นานสูงสุด 1 ปี</li>
+              <li>การซ่อมบำรุงหากมีปัญหา</li>
+              <li>มีการอัพเดตระบบตลอดการใช้งาน</li>
+            </ul>
+            <button type="button" class="w-100 btn btn-lg btn-outline-primary">BUY</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="display-6 text-center mb-4">รายละเอียดของระบบ</h2>
+
+    <div class="table-responsive">
+      <table class="table text-center">
+        <thead>
+          <tr>
+            <th style="width: 34%;"></th>
+            <th style="width: 22%;">ระบบวัดพลังงานไฟฟ้า</th>
+            <th style="width: 22%;">ระบบวัดสภาพอากาศ</th>
+            <th style="width: 22%;">ระบบสำหรับใช้ในการเกษตร</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row" class="text-start">Dashboard แสดงข้อมูล</th>
+            <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
+            <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
+            <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
+          </tr>
+          <tr>
+            <th scope="row" class="text-start">ระบบฐานข้อมูล</th>
+            <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
+            <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
+            <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
+          </tr>
+          <tr>
+            <th scope="row" class="text-start">แอพพลิเคชันมือถือ</th>
+            <td></td>
+            <td></td>
+            <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
+          </tr>
+          <tr>
+            <th scope="row" class="text-start">ระบบควบคุมอุปกรณ์ภายนอก</th>
+            <td></td>
+            <td></td>
+            <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
+          </tr>
+          
+          
+        </tbody>
+      </table>
+    </div>
+{% endblock content %}

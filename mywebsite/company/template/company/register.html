@@ -1,0 +1,55 @@
+{% extends 'company/base.html' %}
+
+{% block title %} Contact {% endblock title %}
+
+{% block content %}
+
+<center>
+
+    <h1> สมัครสมาชิก </h1>
+
+</center>
+
+{% if warning %}
+
+    <div class="alert alert-danger" role="alert">
+        <p>{{ warning }}</p>
+    </div>
+
+{% endif %}
+
+{% if message %}
+
+    <h3>{{ message }}</h3>
+
+{% else %}
+
+    <form method="POST">{% csrf_token %}
+        <div class="form-group">
+            <label for="fullname">Fullname:</label>
+            <input type="text" class="form-control" id="fullname" name="fullname" required>
+        </div><br>
+        <div class="form-group">
+            <label for="mobile">Mobile Phone:</label>
+            <input type="text" class="form-control" id="mobile" name="mobile">
+        </div><br>
+        <div class="form-group">
+            <label for="username">Email:</label>
+            <input type="text" class="form-control" id="username" name="username" required>
+        </div><br>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" class="form-control" id="password" name="password" required> 
+        </div><br>
+        <div class="form-group">
+            <label for="password2">Confirm Password:</label>
+            <input type="password" class="form-control" id="password2" name="password2" required>
+        </div><br>
+        
+        <button type="submit" class="btn btn-primary">Register</button>
+
+    </form>
+{% endif %}
+
+
+{% endblock content %}
