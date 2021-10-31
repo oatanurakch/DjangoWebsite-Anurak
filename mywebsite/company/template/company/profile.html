@@ -1,0 +1,78 @@
+{% extends 'company/base.html' %}
+
+{% block title %} Profile {% endblock title %}
+
+{% block content %}
+
+<center>
+
+    <h1> My Profile </h1>
+
+</center>
+
+{% if warning %}
+
+    <div class="alert alert-danger" role="alert">
+        <p>{{ warning }}</p>
+    </div>
+
+{% endif %}
+
+{% if message %}
+
+    <h3>{{ message }}</h3>
+
+{% else %}
+
+    <form method="POST">{% csrf_token %}
+        <div class="form-group">
+            <label for="fullname">Fullname:</label>
+            <input type="text" class="form-control" id="fullname" name="fullname" value = "{{profile.user.first_name}} {{profile.user.last_name}}" required>
+        </div><br>
+        <div class="form-group">
+            <label for="mobile">Mobile Phone:</label>
+            <input type="text" class="form-control" id="mobile" name="mobile" value = "{{profile.user.mobile}}" >
+        </div><br>
+        <div class="form-group">
+            <label for="username">Email:</label>
+            <input type="text" class="form-control" id="username" name="username" value = "{{profile.user.username}}" required>
+        </div><br>
+
+        <h3>คุณมี Pont: {{profile.point}}</h3>
+        
+        
+        <div class="form-check form-group">
+        <label>ท่านสนใจสินค้าเป็นพิเศษ</label><br>
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+            <label class="form-check-label" for="flexCheckDefault">
+                Embedded System
+            </label>
+            </div>
+            <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+            <label class="form-check-label" for="flexCheckChecked">
+                IoT สำหรับงานทางการเกษตร
+            </label>
+        </div>
+        <hr>
+        <div class="form-check form-group">
+        <label>ท่านต้องการรับข้อมูลข่าวสารหรือไม่</label><br>
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked>
+            <label class="form-check-label" for="flexCheckDefault">
+                ต้องการ
+            </label>
+            </div>
+            <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+            <label class="form-check-label" for="flexCheckChecked">
+                ไม่ต้องการ
+            </label>
+        </div><br>
+        <hr>
+        <button type="submit" class="btn btn-primary">แก้ไขโปรไฟล์</button>
+
+    </form>
+{% endif %}
+
+
+{% endblock content %}

@@ -25,10 +25,17 @@
 {% else %}
 
     <form method="POST">{% csrf_token %}
+    {% if fullname %}
+        <div class="form-group">
+            <label for="fullname">Fullname:</label>
+            <input type="text" class="form-control" id="fullname" name="fullname" value = "{{fullname}}" required>
+        </div><br>
+    {% else %}
         <div class="form-group">
             <label for="fullname">Fullname:</label>
             <input type="text" class="form-control" id="fullname" name="fullname" required>
         </div><br>
+    {% endif %}
         <div class="form-group">
             <label for="mobile">Mobile Phone:</label>
             <input type="text" class="form-control" id="mobile" name="mobile">
@@ -47,6 +54,8 @@
         </div><br>
         
         <button type="submit" class="btn btn-primary">Register</button>
+
+        
 
     </form>
 {% endif %}

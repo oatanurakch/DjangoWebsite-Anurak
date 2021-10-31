@@ -16,11 +16,13 @@ Including another URLconf
 from django.contrib import admin
 # include เป็นการ Link ไปยังจุดอื่น ๆ
 from django.urls import path, include 
-from django.contrib.auth import login, views
+from django.contrib.auth import views
+from company.views import Login
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('company.urls')),  # Link จาก Project ไปยัง App Company
-    path('login/', views.LoginView.as_view(template_name = 'company/login.html'), name = 'login'),
+    # path('login/', views.LoginView.as_view(template_name = 'company/login.html'), name = 'login'),
+    path('login/', Login, name = 'login'),
     path('logout/', views.LogoutView.as_view(template_name = 'company/logout.html'), name = 'logout'),
 ]

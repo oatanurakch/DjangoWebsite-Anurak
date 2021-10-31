@@ -1,10 +1,12 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from .models import *
 from songline import Sendline as sl
 from .emailsystem import *
+from django.contrib.auth.decorators import login_required
+import uuid
 
 # Create your views here.
 
@@ -23,10 +25,11 @@ def Login(request):
         try:
             user = authenticate(username = username, password = password)
             login(request, user)
+            return redirect('profile-page')
         except:
-            context['message'] = 'Username or Password incorrect ! Please contact to Admin'
+            context['message'] = 'Username or Password incorrect ! Reset Password'
 
-    return render(request, 'company/contact.html', context)
+    return render(request, 'company/login.html', context)
 
 
 def Home(request):
@@ -79,8 +82,11 @@ def ContactUs(request):
             
     return render(request, 'company/contact.html', context)
     
-
+@login_required
 def Accountant(request):
+    allow_user = ['accountant', 'admin']
+    if request.user.profile.usertype not in allow_user:
+        return redirect('home-page')
     # Reverse by someone else
     # contact = ContactList.objects.all().order_by('-id')
     
@@ -138,3 +144,32 @@ def Register(request):
             context['message'] = 'Username or Password incorrect ! Please contact to Admin'
 
     return render(request, 'company/register.html', context)
+
+@login_required
+def ProfilePage(request):
+    context = {}
+    profileuser = Profile.objects.get(user = request.user)
+    context['profile'] = profileuser
+    return render(request, 'company/profile.html', context)
+
+def ResetPassword(request):
+
+    context = {}
+
+    if request.method == 'POST':
+        data = request.POST.copy()
+        username = data.get('username')
+
+        try:
+            user = User.objects.get(username = username)
+            u = uuid.uuid1()
+            token = str(u)
+            newreset = ResetPasswordToken()
+            newreset.user = user
+            newreset.token = token
+            newreset.save()
+            return redirect('home-page')
+        except:
+            context['message'] = 'Email ของคุณไม่มีในระบบ กรุณาตรวจสอบความถูกต้องหรือสมัครสมาชิกใหม่'
+
+    return render(request, 'company/resetpassword.html', context)
